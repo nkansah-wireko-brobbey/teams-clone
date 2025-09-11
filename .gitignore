@@ -1,0 +1,79 @@
+# ====================
+# Global
+# ====================
+*.log
+*.tmp
+*.swp
+*.swo
+*.bak
+*.pid
+*.seed
+*.retry
+*.out
+*.orig
+.DS_Store
+Thumbs.db
+
+# ====================
+# Env/config files
+# ====================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# ====================
+# Backend (Spring Boot / Gradle)
+# ====================
+/backend/build/
+/backend/target/
+/backend/out/
+/backend/.gradle/
+/backend/.idea/
+/backend/.project
+/backend/.classpath
+/backend/.settings/
+/backend/*.iml
+
+# ====================
+# Frontend (Next.js / Node)
+# ====================
+/frontend/node_modules/
+/frontend/.next/
+/frontend/out/
+/frontend/.turbo/
+/frontend/.vercel
+/frontend/npm-debug.log*
+/frontend/yarn-debug.log*
+/frontend/yarn-error.log*
+/frontend/package-lock.json
+/frontend/pnpm-lock.yaml
+
+# Optional: keep lock files if you want deterministic builds
+# !/frontend/package-lock.json
+
+# ====================
+# IDEs
+# ====================
+.vscode/
+.idea/
+*.iml
+*.class
+*.jar
+*.war
+*.ear
+
+# ====================
+# Docker
+# ====================
+/**/docker-data/
+/**/tmp/
+/**/uploads/
+
+# ====================
+# Coverage / test
+# ====================
+/**/coverage/
+/**/test-output/
+/**/reports/
