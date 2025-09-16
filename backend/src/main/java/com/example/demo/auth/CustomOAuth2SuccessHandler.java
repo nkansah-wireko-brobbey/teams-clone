@@ -39,7 +39,6 @@ public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler 
 
         String token = JwtUtil.generateToken(user.getEmail());
 
-        response.setContentType("application/json");
-        response.getWriter().write("{\"token\":\"" + token + "\"}");
+        response.sendRedirect("http://localhost:3000/auth/callback?token=" + token);
     }
 }
