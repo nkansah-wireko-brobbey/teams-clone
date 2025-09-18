@@ -1,46 +1,88 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import React from 'react'
+import ChatCard from './components/ChatCard'
+import NotificationCard from './components/NotificationCard'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { SendHorizontal } from 'lucide-react'
+import { ChatPanel } from './components/ChatPanel'
 
 const ChatsPage = () => {
   return (
-    <div className='border p-4 h-screen space-y-4 bg-accent'>
-      <div className='h-[100px] px-4 flex items-center border bg-white'>
-        <span className='text-2xl font-black'>Chat Here!</span>
+    <div className="h-screen flex flex-col bg-accent">
+      {/* Header */}
+      <div className="h-[100px] px-4 flex items-center border bg-white">
+        <span className="text-3xl font-black">Chat Here!</span>
       </div>
-      <div className='grid grid-cols-8 gap-4'>
 
-        <div className='border col-span-2 h-[200px] bg-white p-4'>
-          <div className='mb-4'>
-
-            <div className='h-[70px] flex items-center text-4xl font-black'>
+      {/* Main content grid */}
+      <div className="grid grid-cols-8 gap-4 border flex-1 overflow-hidden">
+        {/* Chats list */}
+        <div className="border col-span-2 bg-white px-4 overflow-y-auto">
+          <div className="mb-4">
+            <div className="h-[80px] border-b pt-4 items-center text-4xl font-black">
               Chats
             </div>
-            <div className='border flex gap-4 font-medium capitalize'>
+            <div className="flex gap-4 font-medium capitalize">
               <span>All</span>
               <span>Direct</span>
               <span>Groups</span>
             </div>
           </div>
-          <div>
-            <div>
-              <div>
-                <Avatar>
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-              </div>
-              <div>
+          <div className="space-y-2">
+            <ChatCard />
+            <ChatCard />
+            <ChatCard />
+            <ChatCard />
+          </div>
+        </div>
 
-              </div>
+        {/* Chat area */}
+        <div className="border col-span-4 bg-white flex flex-col min-h-0">
+          {/* Chat header */}
+          <div className="flex p-4 gap-4 border-b h-[80px]">
+            <div>
+              <Avatar className="size-12">
+                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+            </div>
+            <div>
+              <span className="font-bold block text-xl">Nkansah Wireko-Brobbey</span>
+              <span className="font-medium text-gray-500 block italic">
+                Last Seen 3 hours ago!
+              </span>
             </div>
           </div>
 
-        </div>
-        <div className='border col-span-4 bg-white'>
+          {/* Chat body - takes full remaining height */}
+          <div className="flex-1 overflow-y-auto p-4">
+            {/* Messages will go here */}
+            <ChatPanel />
+          </div>
 
+          {/* Chat input */}
+          <div className="p-4 border-t flex gap-2">
+            <Input
+              type="text"
+              className="w-full border rounded-lg p-2"
+              placeholder="Type a message..."
+            />
+            <Button className='hover:cursor-pointer'><SendHorizontal /></Button>
+          </div>
         </div>
-        <div className='border col-span-2 bg-white'></div>
 
+        {/* Notifications */}
+        <div className="border col-span-2 bg-white overflow-y-auto">
+          <div>
+            <div className="h-[80px] border-b px-4 pt-4 items-center text-4xl font-black">
+              Notification
+            </div>
+            <div className="space-y-2">
+              <NotificationCard />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )
