@@ -4,8 +4,10 @@ import ChatCard from './components/ChatCard'
 import NotificationCard from './components/NotificationCard'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { SendHorizontal } from 'lucide-react'
+import { ChevronRightIcon, Plus, SendHorizontal } from 'lucide-react'
 import { ChatPanel } from './components/ChatPanel'
+import ChatList from './components/ChatList'
+import ChatFilters from './components/ChatFilters'
 
 const ChatsPage = () => {
   return (
@@ -21,20 +23,19 @@ const ChatsPage = () => {
         <div className="border col-span-2 bg-white px-4 overflow-y-auto">
           <div className="mb-4">
             <div className="h-[80px] border-b pt-4 items-center text-4xl font-black">
-              Chats
+              <div className='flex items-center justify-between'>
+                <h1>
+                  Chats
+                </h1>
+                <Button variant="default" size="icon" className="size-8 hover:cursor-pointer">
+                  <Plus />
+                </Button>
+              </div>
             </div>
-            <div className="flex gap-4 font-medium capitalize">
-              <span>All</span>
-              <span>Direct</span>
-              <span>Groups</span>
-            </div>
+            <ChatFilters />
           </div>
-          <div className="space-y-2">
-            <ChatCard />
-            <ChatCard />
-            <ChatCard />
-            <ChatCard />
-          </div>
+          <ChatList />
+
         </div>
 
         {/* Chat area */}
