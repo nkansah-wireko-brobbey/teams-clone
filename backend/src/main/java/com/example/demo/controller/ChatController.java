@@ -2,8 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.ChatCreateRequest;
 import com.example.demo.dto.ChatDto;
-import com.example.demo.model.Chat;
-import com.example.demo.model.ChatType;
 import com.example.demo.services.ChatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

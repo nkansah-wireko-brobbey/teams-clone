@@ -36,6 +36,7 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public ChatDto createChat(ChatCreateRequest dto) {
+        System.out.println("Chat request data: "+dto);
         ChatType chatType = ChatType.valueOf(dto.type().toUpperCase());
         Chat chat = new Chat();
         chat.setName(chatType == ChatType.GROUP ? dto.name() : null);
