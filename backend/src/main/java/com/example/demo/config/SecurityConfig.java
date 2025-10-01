@@ -14,6 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
     private final CustomOAuth2SuccessHandler successHandler;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final CustomCorsConfiguration customCorsConfiguration;
 
     @Bean
     public SecurityFilterChain filterChain(
@@ -21,6 +22,7 @@ public class SecurityConfig {
     ) throws  Exception{
 
         httpSecurity.csrf(csrf->csrf.disable())
+                .cors(c->c.configurationSource(customCorsConfiguration))
                 .authorizeHttpRequests(
                         auth->auth
                                 .requestMatchers(
