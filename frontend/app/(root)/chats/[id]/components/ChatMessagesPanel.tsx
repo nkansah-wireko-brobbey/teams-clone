@@ -1,6 +1,6 @@
 import ChatBubble from "./ChatBubble";
 
-export const ChatPanel = () => {
+export const ChatMessagesPanel = () => {
     return (
         <div className="p-4 space-y-2">
             <ChatBubble

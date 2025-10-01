@@ -5,9 +5,11 @@ import NotificationCard from './components/NotificationCard'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { ChevronRightIcon, Plus, SendHorizontal } from 'lucide-react'
-import { ChatPanel } from './components/ChatPanel'
+import { ChatMessagesPanel } from './components/ChatMessagesPanel'
 import ChatList from './components/ChatList'
 import ChatFilters from './components/ChatFilters'
+import { CommandDialogSearchUsers } from './components/SearchChatMemberForm'
+import AddChatMember from './components/AddChatMember'
 
 const ChatsPage = () => {
   return (
@@ -15,6 +17,7 @@ const ChatsPage = () => {
       {/* Header */}
       <div className="h-[100px] px-4 flex items-center border bg-white">
         <span className="text-3xl font-black">Chat Here!</span>
+
       </div>
 
       {/* Main content grid */}
@@ -27,9 +30,7 @@ const ChatsPage = () => {
                 <h1>
                   Chats
                 </h1>
-                <Button variant="default" size="icon" className="size-8 hover:cursor-pointer">
-                  <Plus />
-                </Button>
+                <AddChatMember />
               </div>
             </div>
             <ChatFilters />
@@ -59,7 +60,7 @@ const ChatsPage = () => {
           {/* Chat body - takes full remaining height */}
           <div className="flex-1 overflow-y-auto p-4">
             {/* Messages will go here */}
-            <ChatPanel />
+            <ChatMessagesPanel />
           </div>
 
           {/* Chat input */}
