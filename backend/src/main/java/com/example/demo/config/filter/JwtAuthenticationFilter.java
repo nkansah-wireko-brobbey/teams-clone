@@ -41,10 +41,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String email = null;
         try {
             email = JwtUtil.validateToken(token);
-        } catch (SignatureException e) {
+        } catch (Exception e) {
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.getWriter().write("Invalid or expired JWT");
+            response.getWriter().write(e.getMessage());
 
             return;
         }

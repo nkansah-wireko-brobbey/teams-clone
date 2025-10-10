@@ -1,5 +1,6 @@
 package com.example.demo.jwt;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -23,7 +24,7 @@ public class JwtUtil {
                 .compact();
     }
 
-    public static String validateToken(String token) throws SignatureException, MalformedJwtException {
+    public static String validateToken(String token) throws SignatureException, MalformedJwtException, ExpiredJwtException {
         return Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()

@@ -20,10 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.security.Principal;
 import java.time.format.DateTimeFormatter;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -43,7 +40,12 @@ public class ChatServiceImpl implements ChatService {
         chat.setType(chatType);
         chatRepository.save(chat);
 
-        Set<User> users = new HashSet<>(userRepository.findAllById(dto.memberUserIds()));
+        User loggedInUser = getLoggedInUser();
+
+        List<Long> memberIdList = new ArrayList<>(dto.memberUserIds());
+        memberIdList.add(loggedInUser.getId());
+
+        Set<User> users = new HashSet<>(userRepository.findAllById(memberIdList));
 
         Set<ChatMember> members = users.stream()
                 .map(user -> {
@@ -81,4 +83,17 @@ public class ChatServiceImpl implements ChatService {
                 .map(ChatMapper::chatDto)
                 .collect(Collectors.toList());
             }
+
+    private User getLoggedInUser() {
+        User user = (User) SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
+
+        if (user == null) {
+            throw new RuntimeException("User not found!");
+        }
+
+        return user;
+    }
 }
