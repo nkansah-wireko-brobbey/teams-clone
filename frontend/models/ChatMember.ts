@@ -1,6 +1,9 @@
-
 export type ChatMember = {
   id: number;
-  userId: number;
-  username: string;
+  user: {
+    id: number;
+    name: string;
+    email: string;
+    pictureUrl: string;
+  };
 };

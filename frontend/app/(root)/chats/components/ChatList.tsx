@@ -5,10 +5,13 @@ import ChatCard from './ChatCard'
 import { Chat } from '@/models/Chat'
 import { LoaderCircle } from 'lucide-react'
 import { getChats } from '@/lib/api-requests/get-chats'
+import { useChatStore } from '@/store/chatStore'
 
 const ChatList = () => {
 
-  const [chats, setChats] = useState<Chat[]>([])
+  const setChats = useChatStore((store) => store.setChats)
+
+  const chats = useChatStore((store) => store.chats)
 
   const [isPending, startTransition] = useTransition()
 
@@ -16,10 +19,11 @@ const ChatList = () => {
     try {
 
       const response = await getChats()
-
       startTransition(() => {
         setChats(response.data)
       })
+
+      console.log("Response", response.data)
 
     } catch (error) {
 
@@ -37,7 +41,7 @@ const ChatList = () => {
       }
       {
         !!chats.length && !isPending ? (
-          chats.map((chat) => (<ChatCard key={chat.id} />))
+          chats.map((chat) => (<ChatCard key={chat.id} chat={chat} />))
         ) : (<>No chats found! 😒</>)
       }
 

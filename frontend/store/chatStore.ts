@@ -1,3 +1,4 @@
+import { Chat } from "@/models/Chat"
 import { create } from "zustand"
 
 export type Message = {
@@ -13,11 +14,6 @@ export type Message = {
   }
 }
 
-type Chat = {
-  id: string
-  name: string
-  lastMessage?: string
-}
 
 type ChatState = {
   chats: Chat[]

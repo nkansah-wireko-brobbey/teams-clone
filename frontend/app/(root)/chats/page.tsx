@@ -1,15 +1,15 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import React from 'react'
-import ChatCard from '../components/ChatCard'
-import NotificationCard from '../components/NotificationCard'
+import ChatCard from './components/ChatCard'
+import NotificationCard from './components/NotificationCard'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { ChevronRightIcon, Plus, SendHorizontal } from 'lucide-react'
-import { ChatMessagesPanel } from '../components/ChatMessagesPanel'
-import ChatList from '../components/ChatList'
-import ChatFilters from '../components/ChatFilters'
-import { CommandDialogSearchUsers } from '../components/SearchChatMemberForm'
-import AddChatMember from '../components/AddChatMember'
+import { ChatMessagesPanel } from './components/ChatMessagesPanel'
+import ChatList from './components/ChatList'
+import ChatFilters from './components/ChatFilters'
+import { CommandDialogSearchUsers } from './components/SearchChatMemberForm'
+import AddChatMember from './components/AddChatMember'
 
 const ChatsPage = () => {
   return (
