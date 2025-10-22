@@ -10,6 +10,7 @@ import ChatList from './components/ChatList'
 import ChatFilters from './components/ChatFilters'
 import { CommandDialogSearchUsers } from './components/SearchChatMemberForm'
 import AddChatMember from './components/AddChatMember'
+import NoActiveChat from './components/NoActiveChat'
 
 const ChatsPage = () => {
   return (
@@ -42,36 +43,16 @@ const ChatsPage = () => {
         {/* Chat area */}
         <div className="border col-span-4 bg-white flex flex-col min-h-0">
           {/* Chat header */}
-          <div className="flex p-4 gap-4 border-b h-[80px]">
-            <div>
-              <Avatar className="size-12">
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-            </div>
-            <div>
-              <span className="font-bold block text-xl">Nkansah Wireko-Brobbey</span>
-              <span className="font-medium text-gray-500 block italic">
-                Last Seen 3 hours ago!
-              </span>
-            </div>
-          </div>
+  
 
           {/* Chat body - takes full remaining height */}
-          <div className="flex-1 overflow-y-auto p-4">
+          <div className="flex-1 p-4 flex items-center justify-center">
             {/* Messages will go here */}
-            <ChatMessagesPanel />
+            <NoActiveChat />
           </div>
 
           {/* Chat input */}
-          <div className="p-4 border-t flex gap-2">
-            <Input
-              type="text"
-              className="w-full border rounded-lg p-2"
-              placeholder="Type a message..."
-            />
-            <Button className='hover:cursor-pointer'><SendHorizontal /></Button>
-          </div>
+
         </div>
 
         {/* Notifications */}
