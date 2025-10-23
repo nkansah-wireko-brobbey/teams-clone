@@ -13,6 +13,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class MessageServiceImpl implements MessageService{
@@ -44,5 +47,14 @@ public class MessageServiceImpl implements MessageService{
         messagingTemplate.convertAndSend("/topic/chats/"+chat.getId(),messageDto);
 
         return messageDto;
+    }
+
+    public List<MessageDto> getMessages(Long chatId){
+
+        List<Message> messageList = messageRepository.findByChatIdOrderByTimestampAsc(chatId);
+
+        return messageList.stream()
+                .map(MessageMapper::toDto)
+                .toList();
     }
 }
