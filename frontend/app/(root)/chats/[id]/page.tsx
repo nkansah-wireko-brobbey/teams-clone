@@ -8,15 +8,19 @@ import { ChatMessagesPanel } from '../components/ChatMessagesPanel'
 import ChatList from '../components/ChatList'
 import ChatFilters from '../components/ChatFilters'
 import AddChatMember from '../components/AddChatMember'
+import ChatTopBar from '../components/ChatTopBar'
 
-const ChatsPage = () => {
+const ChatsPage = async ({params}:{params: {id: string}}) => {
+  const {id} = await params
+
+  console.log(id)
   return (
     <div className="h-screen flex flex-col bg-accent">
       {/* Header */}
-      <div className="h-[100px] px-4 flex items-center border bg-white">
+      {/* <div className="h-[100px] px-4 flex items-center border bg-white">
         <span className="text-3xl font-black">Chat Here!</span>
 
-      </div>
+      </div> */}
 
       {/* Main content grid */}
       <div className="grid grid-cols-8 gap-4 border flex-1 overflow-hidden">
@@ -41,18 +45,7 @@ const ChatsPage = () => {
         <div className="border col-span-4 bg-white flex flex-col min-h-0">
           {/* Chat header */}
           <div className="flex p-4 gap-4 border-b h-[80px]">
-            <div>
-              <Avatar className="size-12">
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-            </div>
-            <div>
-              <span className="font-bold block text-xl">Nkansah Wireko-Brobbey</span>
-              <span className="font-medium text-gray-500 block italic">
-                Last Seen 3 hours ago!
-              </span>
-            </div>
+      <ChatTopBar />
           </div>
 
           {/* Chat body - takes full remaining height */}

@@ -17,12 +17,12 @@ export type Message = {
 
 type ChatState = {
   chats: Chat[]
-  selectedChat: string | null
+  selectedChat: Chat | null
   messages: Record<string, Message[]> // keyed by chatId
 
   // actions
   setChats: (chats: Chat[]) => void
-  selectChat: (chatId: string) => void
+  selectChat: (chatId: Chat) => void
   sendMessage: (chatId: string, msg: Omit<Message, "id" | "timestamp">) => void
 }
 
@@ -33,7 +33,7 @@ export const useChatStore = create<ChatState>((set) => ({
 
   // actions
   setChats: (chats) => set({ chats }),
-  selectChat: (chatId) => set({ selectedChat: chatId }),
+  selectChat: (chat) => set({ selectedChat: chat }),
   sendMessage: (chatId, msg) =>
     set((state) => {
       const newMessage: Message = {

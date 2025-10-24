@@ -10,11 +10,9 @@ import { useChatStore } from '@/store/chatStore'
 const ChatList = () => {
 
   const setChats = useChatStore((store) => store.setChats)
-
   const chats = useChatStore((store) => store.chats)
-
+  const setActiveChat = useChatStore((store)=>store.selectChat)
   const [isPending, startTransition] = useTransition()
-
   const fetchChats = async () => {
     try {
 
@@ -30,6 +28,10 @@ const ChatList = () => {
     }
   }
 
+  const handleSelect = (chat: Chat) =>{
+      setActiveChat(chat)
+  }
+
   React.useEffect(() => {
     fetchChats()
   }, [])
@@ -41,7 +43,7 @@ const ChatList = () => {
       }
       {
         !!chats.length && !isPending ? (
-          chats.map((chat) => (<ChatCard key={chat.id} chat={chat} />))
+          chats.map((chat) => (<ChatCard key={chat.id} chat={chat} onSelect={()=>{handleSelect(chat)}}/>))
         ) : (<>No chats found! 😒</>)
       }
 

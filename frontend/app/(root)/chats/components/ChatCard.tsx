@@ -9,22 +9,27 @@ import React, { useState } from 'react'
 
 
 
-const ChatCard = ({ chat }: { chat: Chat }) => {
+const ChatCard = ({ chat, onSelect }: { chat: Chat, onSelect: ()=>void }) => {
 
   const { userProfile } = useAuth()
 
   const router = useRouter()
 
-  const otherMember = chat.members.find((member) => member.user.email != userProfile?.email)
+  const otherMember = chat.members.find((member) => member.user.email != userProfile?.email) ??  chat.members.at(0)
 
   const displayName = chat.name ?? otherMember?.user.email
 
   const avatarFallback = getInitials(otherMember?.user.name ?? "")
-  
+
   const pictureUrl = otherMember?.user.pictureUrl ?? "https://github.com/shadcn.png"
 
+  const handleClick = () => {
+    onSelect()
+    router.push("/chats/" + chat.id)
+  }
+
   return (
-    <div className='border flex gap-2 p-4 rounded-lg items-center hover:cursor-pointer' onClick={() => { router.push("/chats/" + chat.id) }}>
+    <div className='border flex gap-2 p-4 rounded-lg items-center hover:cursor-pointer' onClick={handleClick}>
       <div>
         <Avatar className='size-12'>
           <AvatarImage src={pictureUrl} />
