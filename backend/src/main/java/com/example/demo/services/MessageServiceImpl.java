@@ -25,8 +25,8 @@ public class MessageServiceImpl implements MessageService{
     private final ChatMemberRepository chatMemberRepository;
     private final SimpMessagingTemplate messagingTemplate;
 
-    public MessageDto sendMessage(MessageRequest messageRequest)throws RuntimeException{
-        Chat chat = chatRepository.findById(messageRequest.chatId())
+    public MessageDto sendMessage(Long chatId, MessageRequest messageRequest)throws RuntimeException{
+        Chat chat = chatRepository.findById(chatId)
                 .orElseThrow(()->new RuntimeException("Chat not found!"));
 
         ChatMember sender = chatMemberRepository.findByUserIdAndChatId(

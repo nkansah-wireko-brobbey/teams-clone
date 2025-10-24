@@ -9,6 +9,6 @@ import java.util.List;
 @Component
 public interface MessageService {
 
-    MessageDto sendMessage(MessageRequest messageRequest)throws RuntimeException;
+    MessageDto sendMessage(Long chatId, MessageRequest messageRequest)throws RuntimeException;
     List<MessageDto> getMessages(Long chatId);
 }

@@ -26,6 +26,7 @@ public class Message {
 
     private String fileUrl;
 
+    @Builder.Default
     private Instant timestamp = Instant.now();
 
 

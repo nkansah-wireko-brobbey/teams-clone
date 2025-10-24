@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import com.example.demo.dto.ChatCreateRequest;
 import com.example.demo.dto.ChatDto;
 import com.example.demo.dto.MessageDto;
+import com.example.demo.dto.MessageRequest;
+import com.example.demo.model.Message;
 import com.example.demo.services.ChatService;
 import com.example.demo.services.MessageService;
 import lombok.RequiredArgsConstructor;
@@ -38,5 +40,17 @@ public class ChatController {
         List<MessageDto> messageDtoList = messageService.getMessages(chatId);
 
         return ResponseEntity.status(HttpStatus.OK).body(messageDtoList);
+    }
+
+    @PostMapping("/{chatId}/message")
+    public ResponseEntity<MessageDto> sendMessages(@PathVariable Long chatId, @RequestBody MessageRequest messageRequest){
+
+        MessageDto newMessage = null;
+        try{
+         newMessage = messageService.sendMessage(chatId, messageRequest);
+        }catch (RuntimeException exception){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(newMessage);
     }
 }

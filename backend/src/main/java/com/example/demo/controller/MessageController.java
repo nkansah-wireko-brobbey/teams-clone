@@ -15,10 +15,5 @@ import java.util.List;
 public class MessageController {
     private final MessageService messageService;
 
-    @PostMapping
-    public MessageDto sendMessage(@RequestBody MessageRequest req) {
-        return messageService.sendMessage(req);
-    }
-
 }
 
