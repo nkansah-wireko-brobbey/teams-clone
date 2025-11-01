@@ -8,11 +8,11 @@ const NoActiveChat = () => {
         <div className=''>
             <div>
                 <Image src={'/speech-bubble.gif'} width={200} height={200} alt={'logo'} />
-                <p className='text-center text-2xl font-bold'>
+                <div className='text-center text-2xl font-bold'>
                     No Chats Selected.
-                </p>
-                <p className='text-center text-gray-400'>Wanna start a chat? <AddChatMember />
-                </p>
+                </div>
+                <div className='text-center text-gray-400'>Wanna start a chat? <AddChatMember />
+                </div>
             </div>
         </div>
     )
