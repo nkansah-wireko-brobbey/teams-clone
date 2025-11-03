@@ -2,6 +2,6 @@ import apiClient from "@/lib/apiClient";
 import { MessageRequest } from "@/models/Message";
 import { Message } from "@/store/chatStore";
 
-export function sendMessage(newMessage: MessageRequest) {
-  return apiClient.post<Message>(`/chats/${newMessage.chatId}/message`, { ...newMessage});
+export function sendMessage(chatId: string, newMessage: MessageRequest) {
+  return apiClient.post<Message>(`/chats/${chatId}/message`, { ...newMessage});
 }

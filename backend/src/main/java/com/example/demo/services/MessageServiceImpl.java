@@ -6,11 +6,13 @@ import com.example.demo.mapper.MessageMapper;
 import com.example.demo.model.Chat;
 import com.example.demo.model.ChatMember;
 import com.example.demo.model.Message;
+import com.example.demo.model.User;
 import com.example.demo.repository.ChatMemberRepository;
 import com.example.demo.repository.ChatRepository;
 import com.example.demo.repository.MessageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,8 +31,10 @@ public class MessageServiceImpl implements MessageService{
         Chat chat = chatRepository.findById(chatId)
                 .orElseThrow(()->new RuntimeException("Chat not found!"));
 
+        User loggedInUser = getLoggedInUser();
+
         ChatMember sender = chatMemberRepository.findByUserIdAndChatId(
-                messageRequest.senderUserId(), messageRequest.chatId())
+                loggedInUser.getId(), messageRequest.chatId())
                 .orElseThrow(()->new RuntimeException("User not found in chat"));
 
         Message message = Message.builder()
@@ -56,5 +60,18 @@ public class MessageServiceImpl implements MessageService{
         return messageList.stream()
                 .map(MessageMapper::toDto)
                 .toList();
+    }
+
+    private User getLoggedInUser() {
+        User user = (User) SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
+
+        if (user == null) {
+            throw new RuntimeException("User not found!");
+        }
+
+        return user;
     }
 }

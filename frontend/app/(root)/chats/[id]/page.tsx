@@ -1,17 +1,13 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import React from 'react'
-import NotificationCard from '../components/NotificationCard'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import { SendHorizontal } from 'lucide-react'
 import { ChatMessagesPanel } from '../components/ChatMessagesPanel'
 import ChatList from '../components/ChatList'
 import ChatFilters from '../components/ChatFilters'
 import AddChatMember from '../components/AddChatMember'
 import ChatTopBar from '../components/ChatTopBar'
+import ChatInput from '../components/ChatInput'
 
-const ChatsPage = async ({params}:{params: {id: string}}) => {
-  const {id} = await params
+const ChatsPage = async ({ params }: { params: { id: string } }) => {
+  const { id } = await params
 
   console.log(id)
   return (
@@ -45,28 +41,23 @@ const ChatsPage = async ({params}:{params: {id: string}}) => {
         <div className="border col-span-4 bg-white flex flex-col min-h-0">
           {/* Chat header */}
           <div className="flex p-4 gap-4 border-b h-[80px]">
-      <ChatTopBar />
+            <ChatTopBar />
           </div>
 
           {/* Chat body - takes full remaining height */}
           <div className="flex-1 overflow-y-auto p-4">
             {/* Messages will go here */}
-            <ChatMessagesPanel />
+            <ChatMessagesPanel chatId={id} />
           </div>
 
           {/* Chat input */}
-          <div className="p-4 border-t flex gap-2">
-            <Input
-              type="text"
-              className="w-full border rounded-lg p-2"
-              placeholder="Type a message..."
-            />
-            <Button className='hover:cursor-pointer'><SendHorizontal /></Button>
+          <div className='p-4'>
+            <ChatInput chatId={id} />
           </div>
         </div>
 
         {/* Notifications */}
-        <div className="border col-span-2 bg-white overflow-y-auto">
+        {/* <div className="border col-span-2 bg-white overflow-y-auto">
           <div>
             <div className="h-[80px] border-b px-4 pt-4 items-center text-4xl font-black">
               Notification
@@ -75,7 +66,7 @@ const ChatsPage = async ({params}:{params: {id: string}}) => {
               <NotificationCard />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   )

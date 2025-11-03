@@ -3,7 +3,7 @@ import React from "react";
 interface ChatBubbleProps {
   message?: string;
   sender?: "me" | "other";
-  timestamp?: string;
+  timestamp: string;
   attachment?: {
     type: "image" | "file";
     url: string;
@@ -19,14 +19,16 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
 }) => {
   const isMe = sender === "me";
 
+  const readableDate = new Date(timestamp).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" })
+
+
   return (
     <div className={`flex mb-2 ${isMe ? "justify-end" : "justify-start"}`}>
       <div
-        className={`max-w-xs md:max-w-md px-4 py-2 rounded-2xl shadow-sm ${
-          isMe
+        className={`max-w-xs md:max-w-md px-4 py-2 rounded-2xl shadow-sm ${isMe
             ? "bg-primary text-white rounded-br-none"
             : "bg-gray-200 text-gray-900 rounded-bl-none"
-        }`}
+          }`}
       >
         {/* Text message */}
         {message && <p className="text-sm mb-1">{message}</p>}
@@ -53,9 +55,10 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
 
         {/* Timestamp */}
         {timestamp && (
-          <span className="block text-[10px] text-gray-400 mt-1">
-            {timestamp}
+          <span className={`block text-[10px] mt-1 ${isMe ? "text-white" : "text-gray-500"}`}>
+            {readableDate}
           </span>
+
         )}
       </div>
     </div>

@@ -1,8 +1,8 @@
 import { ChatMember } from "./ChatMember";
 
 export type MessageRequest = {
-    chatId: number;
-    senderUserId: number;
+    chatId: string;
+    senderUserId?: number;
     content: string;
     fileUrl?: File
 }
