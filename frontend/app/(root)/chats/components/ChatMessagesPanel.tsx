@@ -4,6 +4,7 @@ import ChatBubble from "./ChatBubble";
 import { getMessages } from "@/lib/api-requests/get-messages";
 import { Message } from "@/models/Message";
 import { useAuth } from "@/app/(auth)/components/AuthContext";
+import { useChatStore } from "@/store/chatStore";
 
 
 export const ChatMessagesPanel = ({ chatId }: { chatId: string }) => {
@@ -12,9 +13,11 @@ export const ChatMessagesPanel = ({ chatId }: { chatId: string }) => {
 
     const email = userProfile?.email
 
-    const [messages, setMessages] = useState<Message[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
+
+    const messages = useChatStore(state => state.messages)
+    const setMessages = useChatStore(state=> state.setMessages)
 
     useEffect(() => {
         const fetchMessages = async () => {
@@ -22,7 +25,7 @@ export const ChatMessagesPanel = ({ chatId }: { chatId: string }) => {
                 setLoading(true);
                 setError(null);
                 const response = await getMessages(chatId);
-                setMessages(response.data);
+                setMessages(chatId, response.data);
             } catch (err) {
                 console.error("Error fetching messages:", err);
                 setError("Failed to load messages. Please try again later.");
@@ -30,7 +33,7 @@ export const ChatMessagesPanel = ({ chatId }: { chatId: string }) => {
                 setLoading(false);
             }
         };
-
+        
         fetchMessages();
     }, [chatId]);
 
@@ -42,7 +45,7 @@ export const ChatMessagesPanel = ({ chatId }: { chatId: string }) => {
         )
     }
 
-    if (!messages || messages.length === 0) {
+    if (!messages || !messages[chatId] || messages[chatId].length === 0) {
         return (
             <div className="p-4 text-gray-500 italic text-center">
                 No messages yet. Start the conversation!
@@ -61,7 +64,7 @@ export const ChatMessagesPanel = ({ chatId }: { chatId: string }) => {
     return (
         <div className="p-4 space-y-2">
             {
-                messages.map((message) => {
+                messages[chatId].map((message) => {
                     return (
 
                         <ChatBubble

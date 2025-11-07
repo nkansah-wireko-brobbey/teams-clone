@@ -1,22 +1,45 @@
-import React from 'react'
+"use client"
+
+import React, { Usable } from 'react'
+import {use} from 'react'
 import { ChatMessagesPanel } from '../components/ChatMessagesPanel'
 import ChatList from '../components/ChatList'
 import ChatFilters from '../components/ChatFilters'
 import AddChatMember from '../components/AddChatMember'
 import ChatTopBar from '../components/ChatTopBar'
 import ChatInput from '../components/ChatInput'
+import { WebSocketClient } from '@/lib/webSocketClient'
+import { Message } from '@stomp/stompjs'
+import { useChatStore } from '@/store/chatStore'
 
-const ChatsPage = async ({ params }: { params: { id: string } }) => {
-  const { id } = await params
+import  { type Message as ChatMessage} from "@/models/Message"
 
-  console.log(id)
+
+
+const ChatsPage = ({ params }:{params: Usable<{id: string}>}) => {
+  const { id } = use(params)
+
+  const addMessage = useChatStore(store => store.addMessage)
+
+  const onMessageHandler = (message: Message) => {
+    console.log("Full message: ", message)
+    console.log("Message body: ",message.body)
+    try{
+      const newMessage = JSON.parse(message.body)
+      addMessage(id, newMessage as ChatMessage)
+    }catch(error){
+      console.warn(error)
+    }
+  }
+  
+  const ws = new WebSocketClient("ws://localhost:8090/ws")
+  ws.connect(()=>{
+    ws.subscribeToChat(id, onMessageHandler)
+  })
+
   return (
     <div className="h-screen flex flex-col bg-accent">
-      {/* Header */}
-      {/* <div className="h-[100px] px-4 flex items-center border bg-white">
-        <span className="text-3xl font-black">Chat Here!</span>
 
-      </div> */}
 
       {/* Main content grid */}
       <div className="grid grid-cols-8 gap-4 border flex-1 overflow-hidden">
@@ -30,8 +53,8 @@ const ChatsPage = async ({ params }: { params: { id: string } }) => {
                 </h1>
                 <AddChatMember />
               </div>
+
             </div>
-            <ChatFilters />
           </div>
           <ChatList />
 

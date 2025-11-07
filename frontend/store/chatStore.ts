@@ -1,30 +1,19 @@
-import { Chat } from "@/models/Chat"
-import { create } from "zustand"
-
-export type Message = {
-  id: string
-  chatId: string
-  sender: "me" | "other"
-  text?: string
-  timestamp: string
-  attachment?: {
-    type: "image" | "file"
-    url: string
-    name?: string
-  }
-}
-
+import { Chat } from "@/models/Chat";
+import { Message } from "@/models/Message";
+import { stat } from "fs";
+import { create } from "zustand";
 
 type ChatState = {
-  chats: Chat[]
-  selectedChat: Chat | null
-  messages: Record<string, Message[]> // keyed by chatId
+  chats: Chat[];
+  selectedChat: Chat | null;
+  messages: Record<string, Message[]>; // keyed by chatId
 
   // actions
-  setChats: (chats: Chat[]) => void
-  selectChat: (chatId: Chat) => void
-  sendMessage: (chatId: string, msg: Omit<Message, "id" | "timestamp">) => void
-}
+  setChats: (chats: Chat[]) => void;
+  selectChat: (chatId: Chat) => void;
+  setMessages: (chatId: string, messages: Message[]) => void;
+  addMessage: (chatId: string, message: Message) => void;
+};
 
 export const useChatStore = create<ChatState>((set) => ({
   chats: [],
@@ -34,19 +23,26 @@ export const useChatStore = create<ChatState>((set) => ({
   // actions
   setChats: (chats) => set({ chats }),
   selectChat: (chat) => set({ selectedChat: chat }),
-  sendMessage: (chatId, msg) =>
-    set((state) => {
-      const newMessage: Message = {
-        ...msg,
-        id: Math.random().toString(36).slice(2, 11),
-        chatId,
-        timestamp: new Date().toISOString(),
-      }
+  setMessages: (chatId, messages) =>
+    set((state) => ({
+      messages: {
+        ...state.messages,
+        [chatId]: messages,
+      },
+    })),
+  addMessage: (chatId, message) =>
+    set((state) =>  {
+      
+      const chatMessages = state.messages[chatId]
+      const existingMessage = chatMessages.find((a)=> (a.id === message.id)) ?? {}
+      const newMessage = {...existingMessage, ...message}
+            
       return {
-        messages: {
-          ...state.messages,
-          [chatId]: [...(state.messages[chatId] || []), newMessage],
-        },
-      }
-    }),
-}))
+      messages: {
+        ...state.messages,
+        [chatId]: [...(state.messages[chatId] ?? []), newMessage],
+      },
+    }}
+  
+  ),
+}));

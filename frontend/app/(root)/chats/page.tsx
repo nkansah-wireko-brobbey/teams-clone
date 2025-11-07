@@ -16,10 +16,6 @@ const ChatsPage = () => {
   return (
     <div className="h-screen flex flex-col bg-accent">
       {/* Header */}
-      <div className="h-[100px] px-4 flex items-center border bg-white">
-        <span className="text-3xl font-black">Chat Here!</span>
-
-      </div>
 
       {/* Main content grid */}
       <div className="grid grid-cols-8 gap-4 border flex-1 overflow-hidden">
@@ -34,7 +30,6 @@ const ChatsPage = () => {
                 <AddChatMember />
               </div>
             </div>
-            <ChatFilters />
           </div>
           <ChatList />
 
