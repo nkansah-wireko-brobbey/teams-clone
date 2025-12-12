@@ -37,6 +37,7 @@ const ChatInput = ({ chatId }: { chatId: string }) => {
     return (
         <div className=" p-4 border-t flex gap-2">
             <Input
+                onKeyDown={keydownHandler}
                 type="text"
                 className="w-full border rounded-lg p-2"
                 placeholder="Type a message..."

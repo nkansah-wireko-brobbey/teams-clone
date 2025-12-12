@@ -44,7 +44,7 @@ const ChatsPage = ({ params }:{params: Usable<{id: string}>}) => {
       {/* Main content grid */}
       <div className="grid grid-cols-8 gap-4 border flex-1 overflow-hidden">
         {/* Chats list */}
-        <div className="border col-span-2 bg-white px-4 overflow-y-auto">
+        <div className="border col-span-3 bg-white px-4 overflow-y-auto">
           <div className="mb-4">
             <div className="h-[80px] border-b pt-4 items-center text-4xl font-black">
               <div className='flex items-center justify-between'>
@@ -61,7 +61,7 @@ const ChatsPage = ({ params }:{params: Usable<{id: string}>}) => {
         </div>
 
         {/* Chat area */}
-        <div className="border col-span-4 bg-white flex flex-col min-h-0">
+        <div className="border col-span-5 bg-white flex flex-col min-h-0">
           {/* Chat header */}
           <div className="flex p-4 gap-4 border-b h-[80px]">
             <ChatTopBar />

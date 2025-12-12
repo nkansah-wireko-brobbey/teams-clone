@@ -31,18 +31,16 @@ export const useChatStore = create<ChatState>((set) => ({
       },
     })),
   addMessage: (chatId, message) =>
-    set((state) =>  {
-      
-      const chatMessages = state.messages[chatId]
-      const existingMessage = chatMessages.find((a)=> (a.id === message.id)) ?? {}
-      const newMessage = {...existingMessage, ...message}
-            
+    set((state) => {
+      const chatMessages = state.messages[chatId];
+      const messageExists = chatMessages.some((m) => m.id === message.id);
+      if (messageExists) return state;
+
       return {
-      messages: {
-        ...state.messages,
-        [chatId]: [...(state.messages[chatId] ?? []), newMessage],
-      },
-    }}
-  
-  ),
+        messages: {
+          ...state.messages,
+          [chatId]: [...(state.messages[chatId] ?? []), message],
+        },
+      };
+    }),
 }));

@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import ChatBubble from "./ChatBubble";
 import { getMessages } from "@/lib/api-requests/get-messages";
-import { Message } from "@/models/Message";
 import { useAuth } from "@/app/(auth)/components/AuthContext";
 import { useChatStore } from "@/store/chatStore";
 

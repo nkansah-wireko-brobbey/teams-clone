@@ -42,7 +42,7 @@ const ChatCard = ({ chat, onSelect }: { chat: Chat, onSelect: ()=>void }) => {
           <span className='font-medium text-primary'>3:41PM</span>
         </div>
         <div className='flex justify-between'>
-          <span className='font-medium text-gray-500'>Hey! U're using chats!</span>
+          <span className='font-medium text-gray-500'>Hey! U're using chats!😏</span>
           <span className='bg-primary rounded-full text-sm w-[20px] h-[20px] text-white font-bold text-center'>12</span>
         </div>
       </div>
