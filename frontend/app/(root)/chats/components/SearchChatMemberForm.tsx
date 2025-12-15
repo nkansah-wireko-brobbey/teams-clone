@@ -2,12 +2,8 @@
 
 import * as React from "react"
 import {
-  Calculator,
   Calendar,
-  CreditCard,
   LoaderCircle,
-  Settings,
-  Smile,
 } from "lucide-react"
 
 import {
@@ -17,14 +13,12 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator,
-  CommandShortcut,
 } from "@/components/ui/command"
-import { Chat } from "@/models/Chat"
 import { useRef } from "react"
 import _ from "lodash"
 import { searchUsers } from "@/lib/api-requests/search-users"
 import { User } from "@/models/User"
+import { toast } from "sonner"
 
 type CommandDialogSearchMemberProps = {
   open: boolean;
@@ -54,7 +48,9 @@ export function CommandDialogSearchUsers({ open, onOpenChange, onSelect }: Comma
           })
         }
         catch (error) {
-          console.error("Error!")
+          toast("An error occurred!", {
+            description: error instanceof Error ? error.message : "Unknown error"
+          })
         }
 
       }
@@ -77,7 +73,7 @@ export function CommandDialogSearchUsers({ open, onOpenChange, onSelect }: Comma
               {
                 users.map((user) => {
                   return (
-                    <CommandItem key={user.id} onSelect={()=>{onSelect(user)}}>
+                    <CommandItem key={user.id} onSelect={() => { onSelect(user) }}>
                       <Calendar />
                       <span>{user.email}</span>
                     </CommandItem>

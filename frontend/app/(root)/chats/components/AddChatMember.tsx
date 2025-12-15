@@ -7,6 +7,7 @@ import { User } from '@/models/User'
 import { createChats } from '@/lib/api-requests/create-chat'
 import { DirectChatRequest } from '@/models/Chat'
 import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 
 const AddChatMember = () => {
 
@@ -40,10 +41,12 @@ const AddChatMember = () => {
             const response = await createChats(newChat)
 
             console.log("Chat's created!")
-            router.push("/chats/"+ response.data.id)
+            router.push("/chats/" + response.data.id)
 
         } catch (error) {
-            console.error(error)
+            toast("An error occurred!", {
+                description: error instanceof Error ? error.message : "Unknown error"
+            })
         }
     }
 
