@@ -9,7 +9,7 @@ spring:
     name: teams-clone-backend
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/teamsdb
+    url: jdbc:postgresql://localhost:55432/teamsdb
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
