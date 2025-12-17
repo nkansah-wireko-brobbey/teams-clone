@@ -15,6 +15,7 @@ public class SecurityConfig {
     private final CustomOAuth2SuccessHandler successHandler;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final CustomCorsConfiguration customCorsConfiguration;
+    private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
     @Bean
     public SecurityFilterChain filterChain(
@@ -36,6 +37,7 @@ public class SecurityConfig {
                                 .authenticated()
 
                 )
+                .exceptionHandling(ex -> ex.authenticationEntryPoint(restAuthenticationEntryPoint))
                 .oauth2Login(oauth2->oauth2.successHandler(successHandler));
         httpSecurity.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return  httpSecurity.build();
