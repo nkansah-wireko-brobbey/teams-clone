@@ -33,7 +33,7 @@ export function CommandDialogSearchUsers({ open, onOpenChange, onSelect }: Comma
 
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const fetchUsers = React.useCallback(
+  const fetchUsers = React.useMemo(()=>
     _.debounce(
       async (searchText: string) => {
 
@@ -64,7 +64,7 @@ export function CommandDialogSearchUsers({ open, onOpenChange, onSelect }: Comma
 
   return (
     <>
-      <CommandDialog open={open} onOpenChange={onOpenChange}>
+      <CommandDialog title="Create Chat!" open={open} onOpenChange={onOpenChange}>
         <CommandInput placeholder="Type a command or search..." ref={inputRef} onValueChange={(e) => { fetchUsers(e) }} />
         <CommandList>
           {!users.length && !isPending ? (<CommandEmpty>No results found.</CommandEmpty>) : (
