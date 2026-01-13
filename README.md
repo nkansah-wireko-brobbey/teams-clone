@@ -40,7 +40,7 @@ Authentication is handled using **Google OAuth** for secure and seamless sign-in
 cd frontend
 npm install
 npm run dev
-
+```
 ## Screenshots
 
 ### Login with Google
